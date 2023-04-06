@@ -1,5 +1,5 @@
 // set up the dependencies. Add in the port, express, routes and listener
-require("dotend").config()
+require("dotenv").config()
 
 // Pull the PORT from .env 
 const {PORT} = process.env
@@ -24,7 +24,7 @@ app.use(express.json()) // parse json
 // ROUTES
 // 2) Create a test route 
 app.get("/", (req,res) => {
-    res.send("Hello World")
+    res.send("Hello World, this is a test route for the index index funds app")
 })
 
 
