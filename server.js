@@ -21,4 +21,14 @@ app.use(express.urlencoded({extended:true})) // allow us to get req.body
 app.use(express.json()) // parse json
 
 
+// ROUTES
+// 2) Create a test route 
+app.get("/", (req,res) => {
+    res.send("Hello World")
+})
+
+
+
+// LISTENER
+app.listen(PORT, () => console.log(`Listening on PORT ${PORT}` ))
 
