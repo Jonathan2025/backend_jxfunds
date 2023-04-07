@@ -27,7 +27,12 @@ app.get("/", (req,res) => {
     res.send("Hello World, this is a test route for the index index funds app")
 })
 
+// Now import the availiable routes in routes/index.js
+const routes = require('./routes/index.js')
+app.use('/', routes)
 
+// 4) catch route if it doesnt match to anything we will sent this response 
+app.use((req, res) => {res.status(404).json({message: "Not a proper route- 404 Error"})})
 
 // LISTENER
 app.listen(PORT, () => console.log(`Listening on PORT ${PORT}` ))
