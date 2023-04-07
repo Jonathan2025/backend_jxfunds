@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const fundRoute = require("./fundRoutes")
 
-router.use('/fund', fundRoute)
+router.use('/jxfunds', fundRoute)
 
 
 
