@@ -5,7 +5,8 @@ const mongoose = require("mongoose")
 const FundSchema = new mongoose.Schema({
     name: String,
     company: String,
-    symbol: String, 
+    symbol: String,
+    description: String, 
     recommendation: String, 
     date: Date,
     timezone: String,
