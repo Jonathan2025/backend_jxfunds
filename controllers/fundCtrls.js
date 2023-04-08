@@ -17,6 +17,19 @@ const getFund = (req,res) =>{
     })
 }
 
+// this route will get the show Fund that we want to see
+const showFund = (req,res) =>{
+    // res.send('This is showFund.')
+    db.Fund.findById(req.params.id) 
+    .then((foundFund)=>{
+        if(!foundFund){
+            res.status(404).json({message: 'cannot find the Fund'})
+        } else {
+            res.status(200).json({data: foundFund})
+        }
+    })
+}
+
 // This will let us create a new fund
 const createFund = (req,res) =>{
     // res.send('this is createFund')
@@ -60,5 +73,6 @@ module.exports = {
     getFund,
     createFund,
     updateFund,
-    deleteFund
+    deleteFund,
+    showFund
 }
