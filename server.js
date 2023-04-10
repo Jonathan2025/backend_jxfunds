@@ -1,6 +1,7 @@
 // set up the dependencies. Add in the port, express, routes and listener
 require("dotenv").config()
-
+const userController = require('./controllers/usersCtrls.js')
+app.use('/users', userController)
 // Pull the PORT from .env 
 const {PORT} = process.env
 
