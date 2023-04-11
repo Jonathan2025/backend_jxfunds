@@ -1,7 +1,7 @@
 // set up the dependencies. Add in the port, express, routes and listener
 require("dotenv").config()
-const userController = require('./controllers/usersCtrls.js')
-app.use('/users', userController)
+
+
 // Pull the PORT from .env 
 const {PORT} = process.env
 
@@ -13,6 +13,7 @@ const app = express()
 
 // import cors 
 const cors = require('cors')
+const bcrypt = require('bcrypt')
 
 
 
@@ -20,7 +21,6 @@ const cors = require('cors')
 app.use(cors()) // this will prevent the cors errors and allow us to open access to all origins. An origin can be anything like localhost, heroku, etc
 app.use(express.urlencoded({extended:true})) // allow us to get req.body
 app.use(express.json()) // parse json
-
 
 // ROUTES
 // 2) Create a test route 
