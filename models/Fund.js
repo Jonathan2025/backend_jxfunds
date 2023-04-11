@@ -6,12 +6,18 @@ const FundSchema = new mongoose.Schema({
     name: String,
     company: String,
     symbol: String,
-    description: String, 
-    recommendation: String, 
+    description: String,
+    recommendation: String,
     date: Date,
     timezone: String,
-    price: Number, 
+    price: Number,
     dividends: Number
+}, {
+    timestamps:
+    {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
 })
 
 
