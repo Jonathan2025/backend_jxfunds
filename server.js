@@ -13,6 +13,7 @@ const app = express()
 
 // import cors 
 const cors = require('cors')
+//import bcrypt
 const bcrypt = require('bcrypt')
 
 

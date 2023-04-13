@@ -1,5 +1,7 @@
 // we're pulling in the models data that we have
 const db = require('../models')
+const bcrypt = require('bcrypt')
+const { User } = require('../models')
 console.log(db)
 
 
@@ -15,30 +17,31 @@ const getUser = (req,res) =>{
     })
 }
 
-// This will let us create a new fund
-const createUser = (req,res) =>{
-    // res.send('this is createFund')
-    db.User.create(req.body)
-    .then((createdUser)=>{
-        if(!createdUser){
-            res.status(400).json({message:'cannot create User'})
-        } else {
-            res.status(201).json({data: createdUser, message:'User created'})
-        }
-    })
-}
-// users.get('/new', (req, res) => {
-//   res.render('users/new.ejs')
-// })
+// This will let us create a new User
+// const createUser = (req,res) =>{
+//     // res.send('this is createFund')
+//     db.User.create(req.body)
+//     .then((createdUser)=>{
+//         if(!createdUser){
+//             res.status(400).json({message:'cannot create User'})
+//         } else {
+//             res.status(201).json({data: createdUser, message:'User created'})
+//         }
+//     })
+// }
+const createUser = async (req,res) =>{
+   const {username, password} = req.body
+   
+   try {
+    const user = await User.signup(username, password)
 
-// users.post('/', (req, res) => {
-//   //overwrite the user password with the hashed password, then pass that in to our database
-//   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
-//   User.create(req.body, (err, createdUser) => {
-//     console.log('user is created', createdUser)
-//     res.redirect('/')
-//   })
-// })
+    res.status(200).json({username, user})
+
+   } catch(error){
+    res.status(400).json({error: error.message})
+   }
+}
+
 
 module.exports = {
     getUser,
