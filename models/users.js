@@ -52,6 +52,29 @@ userSchema.statics.signup = async function (username, password) {
     return user
 }
 
+// static login method
+userSchema.statics.signIn = async function(username, password){
+
+    if(!username || !password){
+        throw Error('Both fields must be filled')
+    }
+
+    const user = await this.findOne({ username })
+
+    if (!user) {
+        throw Error('Incorrect Username or Password')
+    } 
+    // this function is innate in bcrypt and lets us check to see if the hashed password and user password matches
+    const matchPassword = await bcrypt.compare(password, user.password)
+
+    if(!matchPassword){
+        throw Error('Incorrect Username or Password')
+    } 
+
+    return user 
+
+}
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User  

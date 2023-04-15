@@ -25,7 +25,20 @@ const getUser = (req, res) => {
 }
 
 const signInUser = async (req, res) =>{
-    res.json({msg:'sign in user'})
+    // this is taking the signIn user data and storing it here
+    const {username, password} = req.body
+
+    try {
+        const user = await User.signIn(username, password)
+
+        // we will create a token after they're saved in the database
+        const token = createToken(user._id)
+
+        res.status(200).json({ username, token })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+
 }
 
 // this is how a user can sign up
@@ -48,7 +61,8 @@ const createUser = async (req, res) => {
 
 module.exports = {
     getUser,
-    createUser
+    createUser,
+    signInUser
 }
 
 // Historic code for reference
