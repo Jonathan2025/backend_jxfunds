@@ -32,10 +32,10 @@ const signInUser = async (req, res) =>{
 
     try {
         const user = await User.signIn(username, password)
-        req.session.user = result
+        // req.session.user = result
         // we will create a token after they're saved in the database
         // const token = createToken(user._id)
-        console.log(req.session.user)
+        // console.log(req.session.user)
         res.status(200).json({ username, password })
     } catch (error) {
         res.status(400).json({ error: error.message })
