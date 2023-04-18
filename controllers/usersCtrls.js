@@ -31,7 +31,7 @@ const signInUser = async (req, res) =>{
         const sessionUser = {id: user._id, name: user.username, password: user.password}
         req.session.user = sessionUser
         
-        res.status(200).json({ sessionUser})
+        res.status(200).json({sessionUser})
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -50,7 +50,7 @@ const createUser = async (req, res) => {
         const sessionUser = {id: user._id, name: user.username, password: user.password}
         req.session.user = sessionUser
 
-        res.status(200).json({ sessionUser })
+        res.status(200).json({ username, password })
         
     } catch (error) {
         res.status(400).json({ error: error.message })
@@ -63,7 +63,7 @@ const logoutUser = async (req, res) =>{
         res.clearCookie('session-id')
         return res.json({msg:'you hit this route'})
     })
-
+}
     const checkAuth = async (req, res) =>{
         const sessionUser = req.session.user;
         if(sessionUser){
@@ -73,7 +73,7 @@ const logoutUser = async (req, res) =>{
         }
     }
 
-}
+
 
 module.exports = {
     getUser,
