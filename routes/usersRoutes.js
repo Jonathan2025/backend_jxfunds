@@ -7,5 +7,7 @@ const {usersCtrl} = require('../controllers')
 router.get('/', usersCtrl.getUser)
 router.post('/signup',usersCtrl.createUser)
 router.post('/signin',usersCtrl.signInUser)
- 
+router.delete('/logout',usersCtrl.logoutUser) 
+router.get('/authcheck', usersCtrl.checkAuth)
+
 module.exports = router;
