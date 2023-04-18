@@ -40,16 +40,16 @@ app.use(
     })
   )
   app.use((req,res, next)=>{
-    console.log(req.session)
+    console.log(req.session.cookie)
     next()
   })
-  console.log(session.cookie)
+  // console.log(session.cookie)
 
 // ROUTES
 // 2) Create a test route 
-app.get("/", (req,res) => {
-    res.send("Hello World, this is a test route for the index index funds app")
-})
+// app.get("/", (req,res) => {
+//     console.log("Cookies ", req.cookies)
+// })
 
 // Now import the availiable routes in routes/index.js
 const routes = require('./routes/index.js')
