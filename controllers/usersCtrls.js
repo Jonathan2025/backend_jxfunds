@@ -7,12 +7,7 @@ const cookieParser = require('cookie-parser')
 const { User } = require('../models')
 console.log(db)
 
-// now that we've required jsonwebtoken we will need a function to create the token, passing in the _id of the user as an arguement
-// const createToken = (_id) => {
-//     // below we are using the object ID, and the SECRET to create the token
-//     // then we set it to expire in 1 day
-//     return jwt.sign({_id: _id},process.env.SECRET, {expiresIn: '1d'})
-// }
+
 
 const getUser = (req, res) => {
     // res.send('This is getFund.')
@@ -32,11 +27,11 @@ const signInUser = async (req, res) =>{
 
     try {
         const user = await User.signIn(username, password)
-        // req.session.user = result
-        // we will create a token after they're saved in the database
-        // const token = createToken(user._id)
-        // console.log(req.session.user)
-        res.status(200).json({ username, password })
+        
+        const sessionUser = {id: user._id, name: user.username, password: user.password}
+        req.session.user = sessionUser
+        
+        res.status(200).json({ sessionUser})
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -52,17 +47,38 @@ const createUser = async (req, res) => {
 
         // we will create a token after they're saved in the database
         // const token = createToken(user._id)
+        const sessionUser = {id: user._id, name: user.username, password: user.password}
+        req.session.user = sessionUser
 
-        res.status(200).json({ username, password })
+        res.status(200).json({ sessionUser })
         
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
 
+const logoutUser = async (req, res) =>{
+    req.session.destroy((err) =>{
+        if(err) throw err;
+        res.clearCookie('session-id')
+        return res.json({msg:'you hit this route'})
+    })
+
+    const checkAuth = async (req, res) =>{
+        const sessionUser = req.session.user;
+        if(sessionUser){
+            return res.json({msg: 'Authenticated ', sessionUser})
+        } else {
+            return res.status(401).json({msg: 'unathorized'})
+        }
+    }
+
+}
 
 module.exports = {
     getUser,
     createUser,
-    signInUser
+    signInUser,
+    logoutUser,
+    checkAuth
 }
