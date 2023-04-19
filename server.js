@@ -25,7 +25,7 @@ const cors = require('cors')
 app.use(cors()) // this will prevent the cors errors and allow us to open access to all origins. An origin can be anything like localhost, heroku, etc
 app.use(express.urlencoded({extended:true})) // allow us to get req.body
 // app.use(cookieParser())
-// app.use(express.json()) // parse json
+app.use(express.json()) // parse json
 // app.use(
 //     session({
 //       key: '_id',  
