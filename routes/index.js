@@ -3,8 +3,6 @@ const fundRoute = require("./fundRoutes")
 const userRoute = require('./usersRoutes')
 
 router.use('/jxfunds', fundRoute)
-router.use('/users', userRoute)
-
-
+// router.use('/users', userRoute)
 
 module.exports = router; 
