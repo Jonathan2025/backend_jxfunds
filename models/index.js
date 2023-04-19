@@ -1,14 +1,19 @@
+require('dotenv').config()
 // setting up the database model, require mongoose
 const mongoose = require("mongoose")
 // const {DATABASE_URL} = process.env
 const {MONGODB_URI} = process.env
+
+console.log("here is mongodb uri", MONGODB_URI)
+
 
 // Establish Database connection, not much will change from unit 2 
 mongoose.connect(MONGODB_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
-console.log(MONGODB_URI)
+
+
 // Connection Events
 mongoose.connection
     .on("open", () => console.log("Your are connected to mongoose"))
