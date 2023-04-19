@@ -15,35 +15,34 @@ const app = express()
 const cors = require('cors')
 
 //import bcrypt
-const bcrypt = require('bcrypt')
-const cookieParser = require('cookie-parser')
-const session = require('express-session')
-
+// const bcrypt = require('bcrypt')
+// const cookieParser = require('cookie-parser')
+// const session = require('express-session')
 
 
 
 // Middleware
 app.use(cors()) // this will prevent the cors errors and allow us to open access to all origins. An origin can be anything like localhost, heroku, etc
 app.use(express.urlencoded({extended:true})) // allow us to get req.body
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(express.json()) // parse json
-app.use(
-    session({
-      key: '_id',  
-      secret: process.env.SECRET, 
-      resave: false, 
-      saveUninitialized: false,
-      cookie: {
-        sameSite: false,
-        maxAge: 3600000,
-        secure: false
-      }
-    })
-  )
-  app.use((req,res, next)=>{
-    console.log(req.session.cookie)
-    next()
-  })
+// app.use(
+//     session({
+//       key: '_id',  
+//       secret: process.env.SECRET, 
+//       resave: false, 
+//       saveUninitialized: false,
+//       cookie: {
+//         sameSite: false,
+//         maxAge: 3600000,
+//         secure: false
+//       }
+//     })
+//   )
+//   app.use((req,res, next)=>{
+//     console.log(req.session.cookie)
+//     next()
+//   })
   // console.log(session.cookie)
 
 // ROUTES
