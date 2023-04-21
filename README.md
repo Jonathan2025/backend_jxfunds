@@ -1,4 +1,8 @@
 # JX Funds
+
+# Link To App
+https://jxfunds.netlify.app/
+
 ## Description
 Scared about investing in the stock market? Not sure how to start? Don’t worry! Jx Funds is a full CRUD application where users can come together as a community and add Index Funds that they want to recommend to others. Index funds have proven to be a safe yet effective investment vehicle that has built wealth for many people for many generations. Users can log in, chat about index funds with others, and view up-to-date information about the recommended funds.
 
