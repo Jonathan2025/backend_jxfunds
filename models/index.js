@@ -4,8 +4,6 @@ const mongoose = require("mongoose")
 // const {DATABASE_URL} = process.env
 const {MONGODB_URI} = process.env
 
-console.log("here is mongodb uri", MONGODB_URI)
-
 
 // Establish Database connection, not much will change from unit 2 
 mongoose.connect(MONGODB_URI, {
@@ -25,4 +23,5 @@ module.exports={
     Fund: require("./Fund.js"),
     // now if we HAD another model in models folder then we could add it here
     // User: require('./users.js') 
+    Comment: require("./commentsModel.js")
 }
