@@ -21,7 +21,7 @@ const CommentSchema = new mongoose.Schema({
     }
 }, 
 {
-    timestamps: true
+    timestamps: true, toJSON: { virtuals: true }
 })
 
 // getting the reply comments of the main comment 

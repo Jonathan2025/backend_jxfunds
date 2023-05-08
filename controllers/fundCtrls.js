@@ -2,12 +2,27 @@
 const db = require('../models')
 console.log(db)
 
+// because we have the virtual property in the fund.js model
+// we can populate the fund data to also include the comments
+const Comment = require('../models/comment')
 
 
 // this route will get the Fund that we want to see
 const getFund = (req,res) =>{
     // res.send('This is getFund.')
-    db.Fund.find({}) 
+    db.Fund.find({}).populate([
+        {
+            path: "comments",
+            match: {
+                check: true,
+                parent: null
+            },
+            // match: {
+            //     check:true,
+            //     parent: null
+            // }
+        }
+    ]) 
     .then((foundFund)=>{
         if(!foundFund){
             res.status(404).json({message: 'cannot find the Funds'})
@@ -19,8 +34,17 @@ const getFund = (req,res) =>{
 
 // this route will get the show Fund that we want to see
 const showFund = (req,res) =>{
-    // res.send('This is showFund.')
-    db.Fund.findById(req.params.id) 
+    // we will also populate with the comment virtual property to get the comments
+    db.Fund.findById(req.params.id).populate([
+
+        {
+            path: "comments",
+            match: {
+                check:true,
+                parent: null
+            }
+        }
+    ])
     .then((foundFund)=>{
         if(!foundFund){
             res.status(404).json({message: 'cannot find the Fund'})
