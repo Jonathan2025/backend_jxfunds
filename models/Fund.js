@@ -21,7 +21,7 @@ const FundSchema = new mongoose.Schema({
 })
 
 
-// we need to have a relationship with the comment schema, so we use what is called a Mongoose Virtual
+// we need to have a relationship with the comment schema, so we use what is called a Mongoose Virtual Property
 FundSchema.virtual('comments', {
     ref: "Comment", // the comment model 
     localField: "_id", //  the mongo DB creates an id for each entry on mongo db
