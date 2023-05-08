@@ -23,5 +23,4 @@ module.exports={
     Fund: require("./Fund.js"),
     // now if we HAD another model in models folder then we could add it here
     // User: require('./users.js') 
-    Comment: require("./commentsModel.js")
 }

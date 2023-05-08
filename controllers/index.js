@@ -2,5 +2,4 @@
 module.exports = {
     fundCtrl: require('./fundCtrls'),
     // usersCtrl: require('./usersCtrls') 
-    commentCtrl: require('./commentCtrls')
 }
