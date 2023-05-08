@@ -23,12 +23,11 @@ const FundSchema = new mongoose.Schema({
     toJSON:{virtuals:true}
 })
 
-
 // we need to have a relationship with the comment schema, so we use what is called a Mongoose Virtual Property
 FundSchema.virtual('comments', {
     ref: "Comment", // the comment model 
     localField: "_id", //  the mongo DB creates an id for each entry on mongo db
-    foreignField: "fund" // needs to match the fund
+    foreignField: "fundId" // needs to match the id of the particular fund
 })
 
 // now we need to create a model from our schema 

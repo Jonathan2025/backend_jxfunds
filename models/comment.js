@@ -1,14 +1,12 @@
 const mongoose = require("mongoose")
 
-
-
 // Comment schema
 const CommentSchema = new mongoose.Schema({
     //user: {type:mongoose.Schema.Types.ObjectId, ref: "User", required: true},
     user: {type: String, ref: "User", required: true},
     desc: {type: String, required:true},
     fundId: {type: mongoose.Schema.Types.ObjectId, ref:"Fund", required: true}, 
-    check: {type: Boolean, default:false},
+    check: {type: Boolean, default:true},
     parent: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment",
@@ -30,8 +28,6 @@ CommentSchema.virtual('replies', {
     localField: "_id", //  the mongo DB creates an id for each entry on mongo db
     foreignField: "parent" // needs to match the parent of the replies
 })
-
-
 
 // now we need to create a model from our schema 
 const Comment = mongoose.model("Comment", CommentSchema)

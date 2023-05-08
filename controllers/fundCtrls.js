@@ -6,37 +6,24 @@ console.log(db)
 // we can populate the fund data to also include the comments
 const Comment = require('../models/comment')
 
-
-// this route will get the Fund that we want to see
+// get route for the funds 
 const getFund = (req,res) =>{
-    // res.send('This is getFund.')
-    db.Fund.find({}).populate([
-        {
-            path: "comments",
-            match: {
-                check: true,
-                parent: null
-            },
-            // match: {
-            //     check:true,
-            //     parent: null
-            // }
-        }
-    ]) 
+    db.Fund.find({})
     .then((foundFund)=>{
         if(!foundFund){
             res.status(404).json({message: 'cannot find the Funds'})
         } else {
+            
             res.status(200).json({data: foundFund})
         }
     })
 }
 
-// this route will get the show Fund that we want to see
+// show route for the SPECIFIC fund
 const showFund = (req,res) =>{
-    // we will also populate with the comment virtual property to get the comments
-    db.Fund.findById(req.params.id).populate([
-
+    // we will also populate with the comment virtual property to get the comments for this particular fund
+    db.Fund.findById(req.params.id)
+    .populate([
         {
             path: "comments",
             match: {

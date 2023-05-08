@@ -4,7 +4,6 @@ const Comment = require("../models/comment")
 
 
 const createComment = async(req,res, next) => {
-    
     try {
         const {desc, parent, replyOnUser} = req.body
         const fundId = req.params.id
@@ -22,14 +21,16 @@ const createComment = async(req,res, next) => {
             // user: req.user._id right now we just want to test with a sample user then we can add user model,
             user: "user1",
             desc,
-            fundId: fundId,
+            fundId: req.params.id,
             parent, 
             replyOnUser
         })
 
+        console.log("this is the new comment", newComment)
+        console.log("this is the fundID for the new comment", newComment.fundId)
+
         const savedComment = await newComment.save()
         return res.json(savedComment)
-
 
     } catch (error){
         next(error)
