@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {fundCtrl} = require('../controllers')
-// const {usersCtrl} = require('../controllers/usersCtrls')
+
 
 //ROUTES - METHODS For Funds
 router.get('/', fundCtrl.getFund)
