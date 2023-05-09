@@ -5,7 +5,7 @@ const Comment = require("../models/comment")
 
 const createComment = async(req,res, next) => {
     try {
-        const {desc, parent, replyOnUser} = req.body
+        const {user, desc, parent, replyOnUser} = req.body
         const fundId = req.params.id
         console.log(fundId)
 
@@ -19,7 +19,7 @@ const createComment = async(req,res, next) => {
 
         const newComment = new Comment({
             // user: req.user._id right now we just want to test with a sample user then we can add user model,
-            user: "user1",
+            user,
             desc,
             fundId: req.params.id,
             parent, 

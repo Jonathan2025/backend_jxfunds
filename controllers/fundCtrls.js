@@ -29,7 +29,22 @@ const showFund = (req,res) =>{
             match: {
                 check:true,
                 parent: null
-            }
+            },
+            // now before we wouldnt be able to see the replies to the comment so we need to adda populate property
+            populate: [
+                // we want to link to the user who made the comment 
+                // {
+                //     path:'user',
+                //     // select:["avatar", "name"]
+                // },
+                // then we want to get the replies of the comment and then set check to true
+                {
+                    path:"replies",
+                    match:{
+                        check:true
+                    }
+                }
+            ]
         }
     ])
     .then((foundFund)=>{
