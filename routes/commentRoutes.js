@@ -5,8 +5,8 @@ const {commentCtrl} = require('../controllers');
 
 //ROUTES - for comments
 router.post('/:id', commentCtrl.createComment)
-// router.put('/:id/:commentId', commentCtrl.updateComment)
-router.get('/:id/comments', commentCtrl.getComments)
+router.put('/:id/updateComment', commentCtrl.updateComment)
+// router.get('/:id', commentCtrl.getComments)
 
 
 

@@ -1,34 +1,11 @@
 const Fund = require("../models/Fund")
 const Comment = require("../models/comment")
 
-// get route for ALL the comments for the SPECIFIC fund
-const getComments = async (req, res) => {
-    try {
-      const fundId = req.params.id
-      const comments = await Comment.find({ fundId: fundId })
-        .populate({
-          path: 'replies',
-          match: { check: true },
-        })
-        .exec()
-  
-      if (!comments) {
-        return res.status(404).json({ message: 'Comments not found' })
-      }
-  
-      return res.status(200).json({ data: comments })
-    } catch (error) {
-      return res.status(500).json({ message: error.message })
-    }
-  }
-
-
 // createComment will be the function that handles creating comments
 const createComment = async(req,res, next) => {
     try {
         const {user, desc, parent, replyOnUser} = req.body
-        const fundId = req.params.id
-        const fund = Fund.findById(req.params.id) 
+        const fund = Fund.findById(req.params.id) // when we are finding the id, we are finding the id in the FUND model
 
         // we want to check that the fund could be found, if not return the error
         if(!fund){
@@ -47,6 +24,7 @@ const createComment = async(req,res, next) => {
         })
 
         const savedComment = await newComment.save()
+       
         return res.json(savedComment)
     } catch (error){
         next(error)
@@ -55,36 +33,33 @@ const createComment = async(req,res, next) => {
 
 
 // updateComment will be the function that is run when the put route(edit comment) is hit 
-// const updateComment = async (req, res, next) => {
-//     try {
-//     // the id in req.body will be the comment ID
-//       const { id, user, desc, parent, replyOnUser } = req.body
-      
-//       const commentId = id // this will be the req.body.id which gets the id from the comments 
-//       const fundId = req.params.id
-        
-//       const updatedComment = await Comment.findByIdAndUpdate(commentId,
-//         { user, desc, fundId, parent, replyOnUser },
-//         { new: true }
-//       )
-  
-//       if (!updatedComment) {
-//         const error = new Error('The comment could not be found')
-//         return next(error)
-//       }
-  
-//       res.json(updatedComment)
-//     } catch (error) {
-//       next(error)
-//     }
-//   }
+const updateComment = async (req, res, next) => {
+    console.log("you have gone before the updated comment")
+    try {
+        // req.body.id will be the id of the comment because 
+        const updatedComment = await Comment.findByIdAndUpdate(req.body.id,
+            req.body,
+            { new: true }
+        )
+    
+        if (!updatedComment) {
+            const error = new Error('The comment could not be found')
+            return next(error)
+        }
+    
+        res.json(updatedComment)
+
+    } catch (error) {
+      next(error)
+    }
+}
+
+
 
 
 
 
 module.exports ={
-    getComments,
     createComment,
-    // updateComment,
-    
+    updateComment,
 }
