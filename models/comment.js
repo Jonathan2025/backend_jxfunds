@@ -13,7 +13,8 @@ const CommentSchema = new mongoose.Schema({
         default: null, 
     },
     replyOnUser: {
-        type: mongoose.Schema.Types.ObjectId, 
+        // type: mongoose.Schema.Types.ObjectId, 
+        type: String, 
         ref: "User",
         default: null
     }

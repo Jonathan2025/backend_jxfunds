@@ -1,24 +1,39 @@
 // we're pulling in the models data that we have
 const db = require('../models')
-console.log(db)
 
 // because we have the virtual property in the fund.js model
 // we can populate the fund data to also include the comments
 const Comment = require('../models/comment')
 
-// get route for the funds 
-const getFund = (req,res) =>{
+// get route for the funds and then we also want use the mongoose populate method to populate with the comments
+const getFund = (req, res) => {
+    
     db.Fund.find({})
-    .then((foundFund)=>{
-        if(!foundFund){
-            res.status(404).json({message: 'cannot find the Funds'})
-        } else {
-            
-            res.status(200).json({data: foundFund})
+      .populate([
+        {
+          path: "comments",
+          match: {
+            check: true,
+            parent: null
+          },
+          populate: [
+            {
+              path: "replies",
+              match: {
+                check: true
+              }
+            }
+          ]
         }
-    })
-}
-
+      ])
+      .then((foundFund) => {
+        if (!foundFund) {
+          res.status(404).json({ message: "Cannot find the Funds" })
+        } else {
+          res.status(200).json({ data: foundFund })
+        }
+      })
+  }
 // show route for the SPECIFIC fund
 const showFund = (req,res) =>{
     // we will also populate with the comment virtual property to get the comments for this particular fund
@@ -29,7 +44,22 @@ const showFund = (req,res) =>{
             match: {
                 check:true,
                 parent: null
-            }
+            },
+            // now before we wouldnt be able to see the replies to the comment so we need to adda populate property
+            populate: [
+                // we want to link to the user who made the comment 
+                // {
+                //     path:'user',
+                //     // select:["avatar", "name"]
+                // },
+                // then we want to get the replies of the comment and then set check to true
+                {
+                    path:"replies",
+                    match:{
+                        check:true
+                    }
+                }
+            ]
         }
     ])
     .then((foundFund)=>{

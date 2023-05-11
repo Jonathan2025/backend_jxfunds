@@ -1,42 +1,77 @@
 const Fund = require("../models/Fund")
 const Comment = require("../models/comment")
 
-
-
+// createComment will be the function that handles creating comments
 const createComment = async(req,res, next) => {
     try {
-        const {desc, parent, replyOnUser} = req.body
-        const fundId = req.params.id
-        console.log(fundId)
-
-        const fund = Fund.findById(req.params.id) 
+        const {user, desc, parent, replyOnUser} = req.body
+        const fund = Fund.findById(req.params.id) // when we are finding the id, we are finding the id in the FUND model
 
         // we want to check that the fund could be found, if not return the error
         if(!fund){
             const error = new Error("The Fund could not be found")
+            // the next keyword is used to move on to the next middleware function in the chain
             return next(error)
         }
 
         const newComment = new Comment({
-            // user: req.user._id right now we just want to test with a sample user then we can add user model,
-            user: "user1",
+            // user will be linked to the user that logged into the app
+            user,
             desc,
             fundId: req.params.id,
             parent, 
             replyOnUser
         })
 
-        console.log("this is the new comment", newComment)
-        console.log("this is the fundID for the new comment", newComment.fundId)
-
         const savedComment = await newComment.save()
+       
         return res.json(savedComment)
-
     } catch (error){
         next(error)
     }
 }
 
-module.exports ={
-    createComment
+
+// updateComment will be the function that is run when the put route(edit comment) is hit 
+const updateComment = async (req, res, next) => {
+    
+    try {
+        // req.body.id will be the id of the comment because 
+        const updatedComment = await Comment.findByIdAndUpdate(req.body.id,
+            req.body,
+            { new: true }
+        )
+    
+        if (!updatedComment) {
+            const error = new Error('The comment could not be found')
+            return next(error)
+        }
+    
+        res.json(updatedComment)
+
+    } catch (error) {
+      next(error)
+    }
 }
+
+
+// Now we can create a delete route similar to how we did for the fund route
+const deleteComment = (req,res) => {
+    Comment.findByIdAndDelete(req.body.id)
+    .then((deletedFund) => {
+        if(!deletedFund){
+            res.status(400).json({Message: 'Could not delete Fund'})
+        } else {
+            res.status(200).json({Data: deletedFund, Message: "Fund deleted"})
+        }
+    })
+}
+
+module.exports ={
+    createComment,
+    updateComment,
+    deleteComment
+}
+
+
+
