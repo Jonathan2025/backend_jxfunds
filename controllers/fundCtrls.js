@@ -1,6 +1,5 @@
 // we're pulling in the models data that we have
 const db = require('../models')
-console.log(db)
 
 // because we have the virtual property in the fund.js model
 // we can populate the fund data to also include the comments
@@ -8,6 +7,7 @@ const Comment = require('../models/comment')
 
 // get route for the funds and then we also want use the mongoose populate method to populate with the comments
 const getFund = (req, res) => {
+    
     db.Fund.find({})
       .populate([
         {
