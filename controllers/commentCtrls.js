@@ -34,7 +34,7 @@ const createComment = async(req,res, next) => {
 
 // updateComment will be the function that is run when the put route(edit comment) is hit 
 const updateComment = async (req, res, next) => {
-    console.log("you have gone before the updated comment")
+    
     try {
         // req.body.id will be the id of the comment because 
         const updatedComment = await Comment.findByIdAndUpdate(req.body.id,
@@ -55,11 +55,23 @@ const updateComment = async (req, res, next) => {
 }
 
 
-
-
-
+// Now we can create a delete route similar to how we did for the fund route
+const deleteComment = (req,res) => {
+    Comment.findByIdAndDelete(req.body.id)
+    .then((deletedFund) => {
+        if(!deletedFund){
+            res.status(400).json({Message: 'Could not delete Fund'})
+        } else {
+            res.status(200).json({Data: deletedFund, Message: "Fund deleted"})
+        }
+    })
+}
 
 module.exports ={
     createComment,
     updateComment,
+    deleteComment
 }
+
+
+
