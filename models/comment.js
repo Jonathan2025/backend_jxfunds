@@ -2,7 +2,6 @@ const mongoose = require("mongoose")
 
 // Comment schema
 const CommentSchema = new mongoose.Schema({
-    //user: {type:mongoose.Schema.Types.ObjectId, ref: "User", required: true},
     user: {type: String, ref: "User", required: true},
     desc: {type: String, required:true},
     fundId: {type: mongoose.Schema.Types.ObjectId, ref:"Fund", required: true}, 
@@ -13,7 +12,6 @@ const CommentSchema = new mongoose.Schema({
         default: null, 
     },
     replyOnUser: {
-        // type: mongoose.Schema.Types.ObjectId, 
         type: String, 
         ref: "User",
         default: null
