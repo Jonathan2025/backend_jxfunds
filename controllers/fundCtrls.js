@@ -1,13 +1,11 @@
 // we're pulling in the models data that we have
 const db = require('../models')
 
-// because we have the virtual property in the fund.js model
-// we can populate the fund data to also include the comments
+// Using the Virtual in the fund.js model we can populate the fund data to also include the comments
 const Comment = require('../models/comment')
 
 // get route for the funds and then we also want use the mongoose populate method to populate with the comments
 const getFund = (req, res) => {
-    
     db.Fund.find({})
       .populate([
         {
@@ -45,14 +43,8 @@ const showFund = (req,res) =>{
                 check:true,
                 parent: null
             },
-            // now before we wouldnt be able to see the replies to the comment so we need to adda populate property
+            // now before we wouldnt be able to see the replies to the comment so we need to add a populate property
             populate: [
-                // we want to link to the user who made the comment 
-                // {
-                //     path:'user',
-                //     // select:["avatar", "name"]
-                // },
-                // then we want to get the replies of the comment and then set check to true
                 {
                     path:"replies",
                     match:{
@@ -73,7 +65,6 @@ const showFund = (req,res) =>{
 
 // This will let us create a new fund
 const createFund = (req,res) =>{
-    // res.send('this is createFund')
     db.Fund.create(req.body)
     .then((createdFund)=>{
         if(!createdFund){
@@ -86,7 +77,6 @@ const createFund = (req,res) =>{
 
 // This will let us update a fund
 const updateFund = (req, res) =>{
-    // res.send('this is updateFund')
     db.Fund.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then((updatedFund) => {
         if(!updatedFund){

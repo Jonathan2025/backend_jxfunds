@@ -1,7 +1,6 @@
 require('dotenv').config()
 // setting up the database model, require mongoose
 const mongoose = require("mongoose")
-// const {DATABASE_URL} = process.env
 const {MONGODB_URI} = process.env
 
 
@@ -21,7 +20,5 @@ mongoose.connection
 // export the models 
 module.exports={
     Fund: require("./Fund.js"),
-    // now if we HAD another model in models folder then we could add it here
-    // User: require('./users.js')
     Comment: require("./comment.js")
 }
