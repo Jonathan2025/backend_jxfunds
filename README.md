@@ -73,5 +73,6 @@ Front End GitHub Repository - https://github.com/Jonathan2025/project3_frontend
 Back End Github Repository - https://github.com/Jonathan2025/backend_jxfunds
 
 ## Citations 
+[Citations.docx](https://github.com/Jonathan2025/backend_jxfunds/files/11500647/Citations.docx)
 
 
